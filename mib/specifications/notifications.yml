@@ -7,4 +7,14 @@ info:
 servers:
   - url: /
 
-paths: []
+paths:
+  /notifications:
+    get:
+      tags: [Notifications]
+      description: Gets the notifications
+      operationId: mib.resources.notifications.notifications
+      responses:
+        200:
+          description: Return notifications
+        default:
+          description: An error occured during retrieving the notifications
