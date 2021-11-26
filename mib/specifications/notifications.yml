@@ -18,3 +18,4 @@ paths:
           description: Return notifications
         default:
           description: An error occured during retrieving the notifications
+
