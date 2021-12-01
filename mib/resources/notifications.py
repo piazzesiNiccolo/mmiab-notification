@@ -1,11 +1,11 @@
 from flask import request, jsonify
 
 from mib.dao.notification_manager import NotificationManager
-from mib.dao.models import Notification
+from mib.models.notification import Notification
 
-def notifications(user_id):
+def notifications(id):
 
-    notifications = NotificationManager.retrieve_by_id(user_id)
+    notifications = NotificationManager.retrieve_by_id(id)
 
     response = jsonify(
         {
@@ -22,8 +22,16 @@ def add_notifications():
 
     notifications = data.get("data")
 
-    for notification in notifications:
-        NotificationManager.create_notification(Notification(notification))
+    for n in notifications:
+        notification = Notification(
+            id_user = n["id_user"],
+            id_message = n["id_message"],
+            for_sender = n["for_sender"],
+            for_recipient = n["for_recipient"],
+            for_lottery = n["for_lottery"],
+            from_recipient = n["from_recipient"]
+        )
+        NotificationManager.create_notification(notification)
 
     response = jsonify(
         {
@@ -31,5 +39,5 @@ def add_notifications():
             "message" : "Notifications added correctly"
         }
     )
-    
 
+    return response, 200

@@ -5,7 +5,7 @@ class Notification(db.Model):
     __tablename__ = "notification"
 
     id_notification = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    id_message = db.Column(db.Integer)
+    id_message = db.Column(db.Integer, default=None)
     id_user = db.Column(db.Integer)
 
     is_notified = db.Column(db.Boolean, default=False)

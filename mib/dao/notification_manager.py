@@ -1,21 +1,22 @@
-from mib.dao.manager import Manager
+
 from mib.models.notification import Notification
 from mib import db
 
 from typing import List
 
-class NotificationManager(Manager):
+class NotificationManager():
        
     @staticmethod
     def create_notification(notification : Notification):
-        Manager.create(notification=notification)
+        db.session.add(notification)
+        db.session.commit()
 
     @staticmethod
     def retrieve_by_id(id_):
         notifications = db.session\
                         .query(Notification)\
                         .filter(Notification.is_notified == False, 
-                                Notification.id == id_)\
+                                Notification.id_user == id_)\
                         .all()
         
         notify_list = []
@@ -47,7 +48,4 @@ class NotificationManager(Manager):
             "recipient_notify": recipient_notify,
             "lottery_notify": lottery_notify,
         }
-        
-
-    
         

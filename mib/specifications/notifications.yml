@@ -11,8 +11,8 @@ paths:
   /notifications/{id}:
     get:
       tags: [Notifications]
-    parameters:
-      - in: path
+      parameters:
+        - in: path
           name: id
           required: true
           schema:
@@ -26,6 +26,8 @@ paths:
           description: Return notifications
         default:
           description: An error occured during retrieving the notifications
+
+
   /notifications/add:
     post:
       tags: [Notifications]
