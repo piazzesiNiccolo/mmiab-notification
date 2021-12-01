@@ -8,14 +8,34 @@ servers:
   - url: /
 
 paths:
-  /notifications:
+  /notifications/{id}:
     get:
       tags: [Notifications]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: id of the user that requires the notifications
       description: Gets the notifications
       operationId: mib.resources.notifications.notifications
       responses:
         200:
           description: Return notifications
+        default:
+          description: An error occured during retrieving the notifications
+
+
+  /notifications/add:
+    post:
+      tags: [Notifications]
+      description: Adds the notifications
+      operationId: mib.resources.notifications.add_notifications
+      responses:
+        200:
+          description: Notifications added correctly
         default:
           description: An error occured during retrieving the notifications
 
