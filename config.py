@@ -1,6 +1,15 @@
+import os
+
 class Config(object):
     DEBUG = False
     TESTING = False
+
+    # users microservice
+    USERS_MS_PROTO = os.getenv('USERS_MS_PROTO', 'http')
+    USERS_MS_HOST = os.getenv('USERS_MS_HOST', 'localhost')
+    USERS_MS_PORT = os.getenv('USERS_MS_PORT', 5000)
+    USERS_MS_URL = '%s://%s:%s' % (USERS_MS_PROTO, USERS_MS_HOST, USERS_MS_PORT)
+    REQUESTS_TIMEOUT_SECONDS = float(os.getenv("REQUESTS_TIMEOUT_SECONDS", 5))
 
 
 class DebugConfig(Config):
