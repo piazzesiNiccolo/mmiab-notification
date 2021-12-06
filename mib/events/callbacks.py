@@ -2,7 +2,6 @@ import json
 import logging
 
 from mib import db
-from mib.dao.notification_manager import NotificationManager
 from mib.models.notification import Notification
 def add_notify(message):
     if message["type"] == "message":
@@ -17,5 +16,12 @@ def add_notify(message):
             from_recipient=n["from_recipient"]
         ) for n in notifications]
         db.session.add_all(notifications)
-        NotificationManager.update()
-        logging.info(f"removed participant with user_id {id}")
+        db.session.commit()
+
+def remove_notify_user_delete(message):
+    if message["type"] == "message":
+        payload = json.loads(message["data"])
+        id = payload.get("user_id")
+        db.session.query(Notification).filter(Notification.id_user==id).delete()
+        db.session.commit()
+        logging.info(f"removed notifications for user with id {id}")
