@@ -3,7 +3,6 @@ from mib.models.notification import Notification
 from mib import db
 from flask import current_app as app
 
-from typing import List
 
 class NotificationManager():
        
