@@ -64,15 +64,8 @@ def create_app():
     import mib.models
 
     # creating migrate
-    migrate = Migrate(
-        app=app,
-        db=db
-    )
-
-    # checking the environment
-    if flask_env == 'testing' or flask_env == 'development':
-        # we need to populate the db
-        db.create_all(app=app)
+    migrate = Migrate(app=app, db=db)
+    db.create_all(app=app)
 
     # registering to api app all specifications
     register_specifications(api_app)
