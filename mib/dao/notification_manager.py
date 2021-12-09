@@ -5,6 +5,9 @@ from flask import current_app as app
 
 
 class NotificationManager():
+    """
+    Wrapper class  for all db operations involving notification
+    """
        
     @classmethod
     def users_endpoint(cls):
