@@ -5,6 +5,7 @@ from mib.models.notification import Notification
 from datetime import datetime
 from mib import db
 
+
 @pytest.fixture(scope="session", autouse=True)
 def test_client():
     app = create_app()
@@ -13,15 +14,22 @@ def test_client():
     with app.test_client() as client:
         yield client
 
+
 @pytest.fixture
 def mock_rbi():
-    with patch('mib.dao.notification_manager.NotificationManager.retrieve_by_id') as mock:
+    with patch(
+        "mib.dao.notification_manager.NotificationManager.retrieve_by_id"
+    ) as mock:
         yield mock
+
 
 @pytest.fixture
 def mock_cn():
-    with patch('mib.dao.notification_manager.NotificationManager.create_notification') as mock:
+    with patch(
+        "mib.dao.notification_manager.NotificationManager.create_notification"
+    ) as mock:
         yield mock
+
 
 """@pytest.fixture
 def notifications():

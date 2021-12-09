@@ -4,18 +4,17 @@ from mib import db
 from flask import current_app as app
 
 
-class NotificationManager():
-       
+class NotificationManager:
     @classmethod
     def users_endpoint(cls):
-        return app.config['USERS_MS_URL']
-    
-    @classmethod
-    def requests_timeout_seconds(cls):
-        return app.config['REQUESTS_TIMEOUT_SECONDS']
+        return app.config["USERS_MS_URL"]
 
     @classmethod
-    def create_notification(cls, notification : Notification):
+    def requests_timeout_seconds(cls):
+        return app.config["REQUESTS_TIMEOUT_SECONDS"]
+
+    @classmethod
+    def create_notification(cls, notification: Notification):
         db.session.add(notification)
         db.session.commit()
 
@@ -24,16 +23,16 @@ class NotificationManager():
         if len(ids) == 0:
             return {}
 
-        ids_str = ','.join([str(id) for id in ids])
+        ids_str = ",".join([str(id) for id in ids])
         endpoint = f"{cls.users_endpoint()}/users/display_info?ids={ids_str}"
         try:
             response = requests.get(endpoint, timeout=cls.requests_timeout_seconds())
             if response.status_code == 200:
-                recipients = response.json()['users']
+                recipients = response.json()["users"]
                 formatted_rcp = {}
                 for rcp in recipients:
-                    _id = rcp['id']
-                    del rcp['id']
+                    _id = rcp["id"]
+                    del rcp["id"]
                     formatted_rcp[_id] = rcp
                 return formatted_rcp
             else:
@@ -44,12 +43,12 @@ class NotificationManager():
 
     @classmethod
     def retrieve_by_id(cls, id_):
-        notifications = db.session\
-                        .query(Notification)\
-                        .filter(Notification.is_notified == False, 
-                                Notification.id_user == id_)\
-                        .all()
-        
+        notifications = (
+            db.session.query(Notification)
+            .filter(Notification.is_notified == False, Notification.id_user == id_)
+            .all()
+        )
+
         notify_list = []
         for notify in notifications:
             notify.is_notified = True
@@ -74,20 +73,21 @@ class NotificationManager():
         recipient_notify = list(map(map_dictionary, recipient_notify))
         lottery_notify = list(map(map_dictionary, lottery_notify))
 
-        rcp_for_sender = [n['from_recipient'] for n in sender_notify]
+        rcp_for_sender = [n["from_recipient"] for n in sender_notify]
         rcp_for_sender = list(set(rcp_for_sender))
         user_dict = cls.retrieve_users_info(rcp_for_sender)
         for n in sender_notify:
-            user = user_dict.get(n['from_recipient'], None)
+            user = user_dict.get(n["from_recipient"], None)
             if user is not None:
-                _fn, _ln = user.get('first_name', 'Anonymous'), user.get('last_name', '')
-                n['from_recipient'] = (_fn + ' ' + _ln).strip()
+                _fn, _ln = user.get("first_name", "Anonymous"), user.get(
+                    "last_name", ""
+                )
+                n["from_recipient"] = (_fn + " " + _ln).strip()
             else:
-                n['from_recipient'] = 'Anonymous'
+                n["from_recipient"] = "Anonymous"
 
         return {
             "sender_notify": sender_notify,
             "recipient_notify": recipient_notify,
             "lottery_notify": lottery_notify,
         }
-        

@@ -1,7 +1,8 @@
 from mib import db
 
+
 class Notification(db.Model):
-    
+
     __tablename__ = "notification"
 
     id_notification = db.Column(db.Integer, primary_key=True, autoincrement=True)
