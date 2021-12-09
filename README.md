@@ -1,8 +1,7 @@
 # Message in A Bottle - Notifications
+[![CircleCI](https://circleci.com/gh/piazzesiNiccolo/mmiab-notification/tree/main.svg?style=svg)](https://circleci.com/gh/piazzesiNiccolo/mmiab-notification/tree/main)
 
-[![Build Status](https://app.travis-ci.com/Team6ASE2021/mmiab-user.svg?token=5PqFNKuWwdmknapJspK9&branch=main)](https://app.travis-ci.com/Team6ASE2021/mmiab-user)
-
-[![codecov](https://codecov.io/gh/Team6ASE2021/mmiab-user/branch/main/graph/badge.svg?token=K8QPGGVUY1)](https://codecov.io/gh/Team6ASE2021/mmiab-user)
+[![codecov](https://codecov.io/gh/piazzesiNiccolo/mmiab-notification/branch/main/graph/badge.svg?token=1GQ3IK56LY)](https://codecov.io/gh/piazzesiNiccolo/mmiab-notification)
 
 This is the source code of Message in a Bottle application, self project of *Advanced Software Engineering* course,
 University of Pisa.
