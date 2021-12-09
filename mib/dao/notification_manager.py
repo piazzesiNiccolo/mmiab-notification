@@ -4,7 +4,12 @@ from mib import db
 from flask import current_app as app
 
 
-class NotificationManager:
+class NotificationManager():
+    """
+    Wrapper class  for all db operations involving notification
+    """
+       
+
     @classmethod
     def users_endpoint(cls):
         return app.config["USERS_MS_URL"]
