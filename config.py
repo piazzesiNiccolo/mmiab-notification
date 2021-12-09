@@ -11,6 +11,10 @@ class Config(object):
     USERS_MS_URL = '%s://%s:%s' % (USERS_MS_PROTO, USERS_MS_HOST, USERS_MS_PORT)
     REQUESTS_TIMEOUT_SECONDS = float(os.getenv("REQUESTS_TIMEOUT_SECONDS", 5))
 
+    REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+    REDIS_PORT = os.getenv("REDIS_PORT", 6379)
+    REDIS_DB = os.getenv("REDIS_DB", 0)
+
 
 class DebugConfig(Config):
     """
